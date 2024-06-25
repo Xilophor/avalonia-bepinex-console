@@ -18,6 +18,17 @@
 
     <!-- Content -->
     <Grid Name="RootGrid">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Log Level" ItemsSource="{Binding LogLevelMenuItems}" Classes="SubItems">
+                <MenuItem.Styles>
+                    <Style Selector="MenuItem.SubItems MenuItem" x:DataType="viewModels:MenuItemViewModel">
+                        <Setter Property="Header" Value="{Binding Header}" />
+                        <Setter Property="Command" Value="{Binding Command}" />
+                        <Setter Property="CommandParameter" Value="{Binding CommandParameter}" />
+                    </Style>
+                </MenuItem.Styles>
+            </MenuItem>
+        </Menu>
 
         <!-- Rows -->
         <Grid.RowDefinitions>

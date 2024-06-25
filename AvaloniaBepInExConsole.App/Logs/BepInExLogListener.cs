@@ -14,6 +14,8 @@ public class BepInExLogListener : BackgroundService, ILogListener
 {
     public SourceList<LogEvent> LogMessages { get; } = new();
 
+    public BepInExLogLevel LogLevel { get; set; } = BepInExLogLevel.Debug;
+
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
         using var runtime = new NetMQRuntime();
@@ -76,6 +78,9 @@ public class BepInExLogListener : BackgroundService, ILogListener
 #if DEBUGAPP
         Console.WriteLine($"Received log message {logEvent}");
 #endif
+        if (logEvent.Level < LogLevel) return;
+        if (logEvent.AnsiFormattedContent.Contains("[Warning: Unity Log] BoxColliders does not support nega")) return;
+
         LogMessages.Add(logEvent);
     }
 }
